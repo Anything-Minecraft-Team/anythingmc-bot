@@ -13,7 +13,7 @@ module.exports = {
             {name: 'Medusa', value: 'Medusa is an anti-cheat for 1.7 to 1.12, it is tested in 1.7/1.8 and experimental in 1.9 to 1.12. Frap also recommends this plugin as a free alternative anti-cheat'},
             {name: 'NoCheatPlus', value: 'A simple free anti-cheat plugin. You will need to configure the config as the default one is very bad, here is a suggested config someone has made but sadly it costs https://www.mc-market.org/resources/475/. Link: https://www.spigotmc.org/resources/nocheatplus-continued-1-16-x.85587/'}
             //{name: 'Recommended Anti-Cheats', value: 'Above was just a list of anti-cheats that are some of the best available. The recommended paid plugin is Vulcan, its good for all servers. The recommended free anti-cheat is warden for 1.9+ and for 1.7/1.8 is ThotPatrol. These may not be the best anti-cheats for your server specifically, these are just the best recommendadtions but hopefully they work for you.'}
-        )
+        ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
 
         message.channel.send(newEmbed);
     }

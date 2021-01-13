@@ -10,7 +10,7 @@ module.exports = {
             {name: 'Birdflop', value: 'Birdflop Hosting is fairly new but already has recieved positive reviews, the owner is active on their discord and is very friendly, support wait time for me was extremely fast. Like pebblehost they do cheap servers, but unlike them they dont oversell their machines so you can use aikar flags (optimizes java startup process A LOT). Link: https://www.birdflop.com/'},
             {name: 'Finding More Hosting Options', value: 'If you would like to see more options you can look here, its a hosting discusion where people looking for hosting can find hosting, hosting providers with let you know what they can give you in terms of a server. The people running this change the discusion to a new link every few months or so to keep it fresh. Link: https://www.reddit.com/r/admincraft/comments/kokt54/admincraft_marketplace_q1_2021/'},
             {name: 'Recommended Server Jar', value: 'It is very highly recommended that you use purpur instead of spigot or PaperMC, it has more features and much better performance.'}
-        )
+        ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
 
         message.channel.send(newEmbed);
     }

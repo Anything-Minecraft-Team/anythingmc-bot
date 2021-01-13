@@ -1,0 +1,4 @@
+This is for the future when i add a command or something that tells you unstable and bad plugins
+
+fast async world edit
+songoda plugins

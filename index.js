@@ -43,6 +43,8 @@ client.on('message', message => {
         client.commands.get('permission').execute(message, args, Discord);
     } else if(command === 'serverjar'){
         client.commands.get('serverjar').execute(message, args, Discord);
+    } else if(command === 'hosting'){
+        client.commands.get('hosting').execute(message, args, Discord);
     }
 });
 

@@ -35,7 +35,9 @@ client.on('message', message => {
     //===========================
 
     //test command
-    if(command === 'anticheat'){
+    if(command === 'help'){
+        client.commands.get('help').execute(message, args, Discord);
+    } else if(command === 'anticheat'){
         client.commands.get('anticheat').execute(message, args, Discord);
     } else if(command === 'permission'){
         client.commands.get('permission').execute(message, args, Discord);

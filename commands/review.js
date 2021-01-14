@@ -10,7 +10,7 @@ module.exports = {
 
         var hostingProviders = ['pebblehost', 'birdflop'];
 
-        let filter = message => user.id === message.author.id
+        let filter = message => message.author.id === message.author.id
         console.log(message.author.id);
         message.channel.send(newEmbed).then(() => {
         message.channel.awaitMessages(filter, {

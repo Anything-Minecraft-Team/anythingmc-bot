@@ -12,7 +12,7 @@ module.exports = {
             {name: '/serverjar', value: 'Brings up a list of suggested server jars to use for your server'},
             {name: '/hosting', value: 'Brings up a list of suggested hosting providers'},
             {name: '/badhosting', value: 'Brings up a list of hosting providers you should stay away from'},
-            {name: '/code', value: 'Brings up an embed with the guthub link'}
+            {name: '/code', value: 'Brings up an embed with the github link'}
         ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
 
         message.channel.send(newEmbed);

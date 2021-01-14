@@ -27,11 +27,11 @@ client.once('ready', () => {
 });
 
 client.on("guildCreate", guild => {
-    console.log("Joined a new guild: " + guild.name);
+    db.add('bot.server', 1);
 })
 
 client.on("guildDelete", guild => {
-    console.log("Left a guild: " + guild.name);
+    db.subtract('bot.server', 1);
 })
 
 client.on('message', message => {
@@ -59,6 +59,8 @@ client.on('message', message => {
         client.commands.get('badhosting').execute(message, args, Discord);
     } else if(command === 'code'){
         client.commands.get('code').execute(message, args, Discord);
+    } else if(command === 'compare'){
+        client.commands.get('compare').execute(message, args, Discord);
     }
 });
 

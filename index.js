@@ -10,7 +10,7 @@ const config = require('./config.json');
 
 const fs = require('fs');
 
-const prefix = '!';
+const prefix = '/';
 
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
 for(const file of commandFiles){

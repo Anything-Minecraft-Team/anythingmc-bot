@@ -59,9 +59,9 @@ client.on('message', message => {
         client.commands.get('badhosting').execute(message, args, Discord);
     } else if(command === 'code'){
         client.commands.get('code').execute(message, args, Discord);
-    } else if(command === 'compare'){
-        client.commands.get('compare').execute(message, args, Discord);
-    }
+    } //else if(command === 'compare'){
+        //client.commands.get('compare').execute(message, args, Discord);
+    //}
 });
 
 

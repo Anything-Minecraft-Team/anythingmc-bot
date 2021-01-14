@@ -21,7 +21,7 @@ for(const file of commandFiles){
 
 
 client.once('ready', () => {
-    console.log('Bot On');
+    console.log('Bot Onk');
 
     client.user.setActivity('Server Yes');
 });

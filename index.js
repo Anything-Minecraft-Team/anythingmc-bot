@@ -2,6 +2,8 @@ const Discord = require('discord.js');
 
 const client = new Discord.Client();
 
+//var db = require('quick.db')
+
 client.commands = new Discord.Collection();
 
 const config = require('./config.json');
@@ -23,6 +25,14 @@ client.once('ready', () => {
 
     client.user.setActivity('Server Yes');
 });
+
+client.on("guildCreate", guild => {
+    console.log("Joined a new guild: " + guild.name);
+})
+
+client.on("guildDelete", guild => {
+    console.log("Left a guild: " + guild.name);
+})
 
 client.on('message', message => {
     if(!message.content.startsWith(prefix) || message.author.bot) return;

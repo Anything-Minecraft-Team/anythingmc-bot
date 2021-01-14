@@ -24,6 +24,10 @@ client.once('ready', () => {
     console.log('Bot Onk');
 
     client.user.setActivity('Server Yes');
+
+    client.guilds.cache.forEach(guild => {
+        console.log(`${guild.name} | ${guild.id}`);
+      })
 });
 
 client.on("guildCreate", guild => {

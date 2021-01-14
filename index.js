@@ -2,7 +2,7 @@ const Discord = require('discord.js');
 
 const client = new Discord.Client();
 
-//var db = require('quick.db')
+var db = require('quick.db')
 
 client.commands = new Discord.Collection();
 

@@ -1,5 +1,7 @@
 const Discord = require('discord.js');
 
+var mysql = require('mysql');
+
 const client = new Discord.Client();
 
 var db = require('quick.db')
@@ -13,7 +15,7 @@ const fs = require('fs');
 const prefix = '/';
 
 const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-for(const file of commandFiles){
+for (const file of commandFiles) {
     const command = require(`./commands/${file}`);
 
     client.commands.set(command.name, command);
@@ -21,14 +23,32 @@ for(const file of commandFiles){
 
 
 client.once('ready', () => {
-    console.log('Bot Onk');
+    console.log('Bot On');
 
     client.user.setActivity('Server Yes');
 
     client.guilds.cache.forEach(guild => {
         console.log(`${guild.name} | ${guild.id}`);
-      })
+    })
 });
+
+var con = mysql.createConnection({
+    host: config.host,
+    user: config.user,
+    password: config.password,
+    port: config.port,
+    database: config.database
+});
+
+con.connect(function(err) {
+    if (err) throw err;
+    console.log("Connected!");
+    /**var sql = "CREATE TABLE pebblehost_reviews (userID int, rating int, review VARCHAR(1500))";
+    con.query(sql, function (err, result) {
+      if (err) throw err;
+      console.log("Table created");
+    });**/
+  });
 
 client.on("guildCreate", guild => {
     db.add('bot.server', 1);
@@ -39,7 +59,7 @@ client.on("guildDelete", guild => {
 })
 
 client.on('message', message => {
-    if(!message.content.startsWith(prefix) || message.author.bot) return;
+    if (!message.content.startsWith(prefix) || message.author.bot) return;
 
     const args = message.content.substring(prefix.length).split(" ");
     const command = args.shift().toLowerCase();
@@ -48,26 +68,39 @@ client.on('message', message => {
     //||     All Commands      ||
     //===========================
 
-    //test command
-    if(command === 'help'){
+    if (command === 'test') {
+        
+    }
+
+    if (command === 'help') {
         client.commands.get('help').execute(message, args, Discord);
-    } else if(command === 'anticheat'){
+    } else if (command === 'anticheat') {
         client.commands.get('anticheat').execute(message, args, Discord);
-    } else if(command === 'permission'){
+    } else if (command === 'permission') {
         client.commands.get('permission').execute(message, args, Discord);
-    } else if(command === 'serverjar'){
+    } else if (command === 'serverjar') {
         client.commands.get('serverjar').execute(message, args, Discord);
-    } else if(command === 'hosting'){
+    } else if (command === 'hosting') {
         client.commands.get('hosting').execute(message, args, Discord);
-    } else if(command === 'badhosting'){
+    } else if (command === 'badhosting') {
         client.commands.get('badhosting').execute(message, args, Discord);
-    } else if(command === 'code'){
+    } else if (command === 'code') {
         client.commands.get('code').execute(message, args, Discord);
-    } else if(command === 'review'){
-        client.commands.get('review').execute(message, args, Discord);
+    } else if (command === 'review') {
+        client.commands.get('review').execute(message, args, Discord, con);
     } //else if(command === 'compare'){
-        //client.commands.get('compare').execute(message, args, Discord);
+    //client.commands.get('compare').execute(message, args, Discord);
     //}
+
+    //===========================
+    //||    Owner Commands     ||
+    //===========================
+
+    if(message.author.id === '474482013886480385'){
+        if (command === 'changestatus') {
+            client.commands.get('changestatus').execute(message, args, client);
+        }
+    }
 });
 
 

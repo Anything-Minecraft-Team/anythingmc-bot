@@ -25,7 +25,7 @@ for (const file of commandFiles) {
 client.once('ready', () => {
     console.log('Bot On');
 
-    client.user.setActivity(' ');
+    client.user.setActivity('Birdflop Hosting!');
 });
 
 var con = mysql.createConnection({

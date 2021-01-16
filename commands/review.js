@@ -7,7 +7,7 @@ module.exports = {
             .setTitle('Review A Hosting Provider')
             .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
             .addFields(
-                { name: 'What hosting provider would you like to review?', value: 'Options:\n- Pebblehost\n- Birdflop\n- MCProHosting\n- Shockbyte\n- TitanNodes\n- MixmlHosting\n- WinterNode\n- AtlasNode' }
+                { name: 'What hosting provider would you like to review?', value: '[View a list of hosting providers you can review](https://github.com/JustDoom/minecraft-server-helper-bot/wiki/Reviewable-Hosting-Providers)' }
             ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
 
         var hostingProviders = ['pebblehost', 'birdflop', 'mcprohosting', 'shockbyte', 'titannodes', 'mixmlhosting', 'winternode', 'atlasnode'];

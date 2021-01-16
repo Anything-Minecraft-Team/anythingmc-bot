@@ -11,7 +11,7 @@ module.exports = {
         var hostingProviders = ['pebblehost', 'birdflop', 'mcprohosting', 'shockbyte', 'titannodes', 'mixmlhosting', 'winternode', 'atlasnode'];
 
         let filter = m => m.author.id === message.author.id
-        message.channel.send(newEmbed).then(() => {
+        message.channel.send(newEmbed).then(sentMessage => {
             message.channel.awaitMessages(filter, {
                 max: 1,
                 time: 30000,
@@ -24,16 +24,28 @@ module.exports = {
                         con.query(`SELECT * FROM ${selectedProvider}_reviews WHERE userID = ${message.author.id}`, function (err, result, fields) {
                             if (err) throw err;
                             if (result.length) {
-                                message.channel.send('already reviewed this');
+                                message.delete();
+                                const receivedEmbed = sentMessage.embeds[0];
+                                receivedEmbed.fields = [];
+                                const newEmbedReviewed = new Discord.MessageEmbed(receivedEmbed)
+                                    .setColor('#2c5999')
+                                    .setTitle('Review')
+                                    .addFields(
+                                        { name: 'Review Canceled', value: 'You have already reviewed this hosting provider' }
+                                    ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
 
+                                sentMessage.edit(newEmbedReviewed);
                             } else {
-                                const newEmbed2 = new Discord.MessageEmbed()
+                                message.delete();
+                                const receivedEmbed = sentMessage.embeds[0];
+                                receivedEmbed.fields = [];
+                                const newEmbed2 = new Discord.MessageEmbed(receivedEmbed)
                                     .setColor('#2c5999')
                                     .setTitle('Review')
                                     .addFields(
                                         { name: 'Review Text', value: 'Write your review here! You have 10 minutes before its canceled.' }
                                     ).setFooter('Help keep the bot running by donating! \nwww.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
-                                message.channel.send(newEmbed2).then(() => {
+                                sentMessage.edit(newEmbed2).then(sentMessage => {
                                     message.channel.awaitMessages(filter, {
                                         max: 1,
                                         time: 600000,
@@ -43,13 +55,16 @@ module.exports = {
                                             message = message.first()
                                             if (message !== null) {
                                                 let reviewText = message.content;
-                                                const newEmbed3 = new Discord.MessageEmbed()
+                                                message.delete();
+                                                const receivedEmbed = sentMessage.embeds[0];
+                                                receivedEmbed.fields = [];
+                                                const newEmbed3 = new Discord.MessageEmbed(receivedEmbed)
                                                     .setColor('#2c5999')
                                                     .setTitle('Rate The Hosting Provider')
                                                     .addFields(
                                                         { name: 'Review Stars', value: 'How many stars do you rate the hosting provider? 1 is the worst and 5 is the best.' }
                                                     ).setFooter('Help keep the bot running by donating! \nwww.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
-                                                message.channel.send(newEmbed3).then(() => {
+                                                sentMessage.edit(newEmbed3).then(sentMessage => {
                                                     message.channel.awaitMessages(filter, {
                                                         max: 1,
                                                         time: 30000,
@@ -71,7 +86,10 @@ module.exports = {
                                                                 } else if (message.content === '5') {
                                                                     stars = '⭐⭐⭐⭐⭐';
                                                                 }
-                                                                const newEmbed4 = new Discord.MessageEmbed()
+                                                                message.delete();
+                                                                const receivedEmbed = sentMessage.embeds[0];
+                                                                receivedEmbed.fields = [];
+                                                                const newEmbed4 = new Discord.MessageEmbed(receivedEmbed)
                                                                     .setColor('#2c5999')
                                                                     .setTitle('Review')
                                                                     .addFields(
@@ -79,7 +97,7 @@ module.exports = {
                                                                         { name: "Your Review", value: reviewText },
                                                                         { name: 'Rating', value: stars }
                                                                     ).setFooter('Help keep the bot running by donating! \nwww.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
-                                                                message.channel.send(newEmbed4).then(() => {
+                                                                sentMessage.edit(newEmbed4).then(sentMessage => {
                                                                     message.channel.awaitMessages(filter, {
                                                                         max: 1,
                                                                         time: 30000,
@@ -91,21 +109,27 @@ module.exports = {
                                                                                 con.query(`INSERT INTO review_queue (userID, rating, review, provider) VALUES (${message.author.id}, ${selectedRating}, '${reviewText}', '${selectedProvider}')`), (err, result) => {
                                                                                     if (err) throw err;
                                                                                 };
-                                                                                const newEmbed5 = new Discord.MessageEmbed()
+                                                                                message.delete();
+                                                                                const receivedEmbed = sentMessage.embeds[0];
+                                                                                receivedEmbed.fields = [];
+                                                                                const newEmbed5 = new Discord.MessageEmbed(receivedEmbed)
                                                                                     .setColor('#2c5999')
                                                                                     .setTitle('Review')
                                                                                     .addFields(
                                                                                         { name: 'Submited', value: 'Your review has been submited!.' }
                                                                                     ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
-                                                                                message.channel.send(newEmbed5);
+                                                                                sentMessage.edit(newEmbed5);
                                                                             } else if (message.content.toLowerCase() === 'no') {
-                                                                                const embedCancel = new Discord.MessageEmbed()
+                                                                                message.delete();
+                                                                                const receivedEmbed = sentMessage.embeds[0];
+                                                                                receivedEmbed.fields = [];
+                                                                                const embedCancel = new Discord.MessageEmbed(receivedEmbed)
                                                                                     .setColor('#2c5999')
                                                                                     .setTitle('Review canceled')
                                                                                     .addFields(
                                                                                         { name: 'You canceled your review', value: 'Type /review to review another hosting provider.' }
                                                                                     ).setFooter('Help keep the bot running by donating! \nwww.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
-                                                                                message.channel.send();
+                                                                                sentMessage.edit(embedCancel);
                                                                             } else {
                                                                                 message.channel.send('Terminated: Invalid Response');
                                                                             }

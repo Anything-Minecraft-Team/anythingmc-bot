@@ -5,6 +5,7 @@ module.exports = {
         .setColor('#2c5999')
         .setTitle('Suggested Anti-Cheats')
         .setDescription('Here is a list of suggested Anti-Cheats')
+        .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
         .addFields(
             {name: 'Vulcan', value: 'Vulcan is a super advanced anti-cheat, it is the best that you can buy. It has an api and the developer is super active and will help you solve anything thats wrong with the plugin! Its for all version 1.7 and above. Doesnt affect your server tps. It is a paid plugin but its cheap for what it can do. Link: https://www.spigotmc.org/resources/vulcan-advanced-cheat-detection-1-7-1-16-4.83626/'},
             {name: 'Vulcan Geyser', value: 'Simple plugin which does not inject and flag players using Geyser on Vulcan-Anticheat. This is an addon to Vulcan. Link: https://www.spigotmc.org/resources/vulcan-geyser.86726/'},

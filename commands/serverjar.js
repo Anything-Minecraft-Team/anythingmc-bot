@@ -5,6 +5,7 @@ module.exports = {
         .setColor('#2c5999')
         .setTitle('Suggested Server Jars')
         .setDescription('Here is a suggested Server Jars to use for your server')
+        .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
         .addFields(
             {name: 'PaperMC', value: 'PaperMC is a fork of spigot that aims to improve performance and adds tons of new features, one for example is a built in anti-xray! Its available for versions 1.8.8 to the current version, old version do not recieve updates or support. Link: https://papermc.io/'},
             {name: 'Tuinity', value: 'Tuinity is a fork of PaperMC that increases performance even further! Its essentially early access to PaperMC features as the creator of Tuinity helps develop PaperMC on its github, he created Tuinity because it took ages for the PaperMC team to accept his changes. It is available for 1.13.2 and above. Link: https://github.com/Spottedleaf/Tuinity'},

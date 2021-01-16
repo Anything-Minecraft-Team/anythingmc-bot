@@ -71,11 +71,11 @@ client.on('message', message => {
         client.commands.get('permission').execute(message, args, Discord);
     } else if (command === 'serverjar') {
         client.commands.get('serverjar').execute(message, args, Discord);
-    } else if (command === 'hosting') {
+    } else if (command === 'hosting' || command === 'hosts') {
         client.commands.get('hosting').execute(message, args, Discord);
-    } else if (command === 'badhosting') {
+    } else if (command === 'badhosting' || command === 'badhosts') {
         client.commands.get('badhosting').execute(message, args, Discord);
-    } else if (command === 'code') {
+    } else if (command === 'code' || command === 'github' || command === 'repo') {
         client.commands.get('code').execute(message, args, Discord);
     } else if (command === 'review') {
         client.commands.get('review').execute(message, args, Discord, con);

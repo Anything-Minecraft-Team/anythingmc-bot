@@ -1,9 +1,11 @@
 module.exports = {
     name: 'review',
     execute(message, args, Discord, con) {
+        message.delete();
         const newEmbed = new Discord.MessageEmbed()
             .setColor('#2c5999')
             .setTitle('Review A Hosting Provider')
+            .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
             .addFields(
                 { name: 'What hosting provider would you like to review?', value: 'Options:\n- Pebblehost\n- Birdflop\n- MCProHosting\n- Shockbyte\n- TitanNodes\n- MixmlHosting\n- WinterNode\n- AtlasNode' }
             ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
@@ -30,6 +32,7 @@ module.exports = {
                                 const newEmbedReviewed = new Discord.MessageEmbed(receivedEmbed)
                                     .setColor('#2c5999')
                                     .setTitle('Review')
+                                    .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
                                     .addFields(
                                         { name: 'Review Canceled', value: 'You have already reviewed this hosting provider' }
                                     ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
@@ -42,6 +45,7 @@ module.exports = {
                                 const newEmbed2 = new Discord.MessageEmbed(receivedEmbed)
                                     .setColor('#2c5999')
                                     .setTitle('Review')
+                                    .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
                                     .addFields(
                                         { name: 'Review Text', value: 'Write your review here! You have 10 minutes before its canceled.' }
                                     ).setFooter('Help keep the bot running by donating! \nwww.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
@@ -61,6 +65,7 @@ module.exports = {
                                                 const newEmbed3 = new Discord.MessageEmbed(receivedEmbed)
                                                     .setColor('#2c5999')
                                                     .setTitle('Rate The Hosting Provider')
+                                                    .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
                                                     .addFields(
                                                         { name: 'Review Stars', value: 'How many stars do you rate the hosting provider? 1 is the worst and 5 is the best.' }
                                                     ).setFooter('Help keep the bot running by donating! \nwww.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
@@ -92,6 +97,7 @@ module.exports = {
                                                                 const newEmbed4 = new Discord.MessageEmbed(receivedEmbed)
                                                                     .setColor('#2c5999')
                                                                     .setTitle('Review')
+                                                                    .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
                                                                     .addFields(
                                                                         { name: 'Confirm Review?', value: 'This is your review, would you like to submit this? Yes or No.' },
                                                                         { name: "Your Review", value: reviewText },
@@ -115,6 +121,7 @@ module.exports = {
                                                                                 const newEmbed5 = new Discord.MessageEmbed(receivedEmbed)
                                                                                     .setColor('#2c5999')
                                                                                     .setTitle('Review')
+                                                                                    .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
                                                                                     .addFields(
                                                                                         { name: 'Submited', value: 'Your review has been submited!.' }
                                                                                     ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
@@ -126,42 +133,116 @@ module.exports = {
                                                                                 const embedCancel = new Discord.MessageEmbed(receivedEmbed)
                                                                                     .setColor('#2c5999')
                                                                                     .setTitle('Review canceled')
+                                                                                    .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
                                                                                     .addFields(
                                                                                         { name: 'You canceled your review', value: 'Type /review to review another hosting provider.' }
                                                                                     ).setFooter('Help keep the bot running by donating! \nwww.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
                                                                                 sentMessage.edit(embedCancel);
                                                                             } else {
-                                                                                message.channel.send('Terminated: Invalid Response');
+                                                                                message.delete();
+                                                                                const receivedEmbed = sentMessage.embeds[0];
+                                                                                receivedEmbed.fields = [];
+                                                                                const embedterminated = new Discord.MessageEmbed(receivedEmbed)
+                                                                                    .setColor('#2c5999')
+                                                                                    .setTitle('Review terminated')
+                                                                                    .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
+                                                                                    .addFields(
+                                                                                        { name: 'Your review was terminated', value: `${message.content} is not a valid response` }
+                                                                                    ).setFooter('Help keep the bot running by donating! \nwww.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                                                                                sentMessage.edit(embedterminated);
                                                                             }
                                                                         })
                                                                         .catch(collected => {
-                                                                            message.channel.send('Timeout');
+                                                                            const receivedEmbed = sentMessage.embeds[0];
+                                                                            receivedEmbed.fields = [];
+                                                                            const embedterminated = new Discord.MessageEmbed(receivedEmbed)
+                                                                                .setColor('#2c5999')
+                                                                                .setTitle('Timeout')
+                                                                                .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
+                                                                                .addFields(
+                                                                                    { name: 'You took to long', value: 'You didnt answer in time, you took 30 seconds too long.' }
+                                                                                ).setFooter('Help keep the bot running by donating! \nwww.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                                                                            sentMessage.edit(embedterminated);
                                                                         });
                                                                 })
                                                             } else {
-                                                                message.channel.send(`Terminated: Invalid Response`)
+                                                                const receivedEmbed = sentMessage.embeds[0];
+                                                                receivedEmbed.fields = [];
+                                                                const embedterminated = new Discord.MessageEmbed(receivedEmbed)
+                                                                    .setColor('#2c5999')
+                                                                    .setTitle('Review terminated')
+                                                                    .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
+                                                                    .addFields(
+                                                                        { name: 'Your review was terminated', value: `${message.content} is not a valid response` }
+                                                                    ).setFooter('Help keep the bot running by donating! \nwww.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                                                                sentMessage.edit(embedterminated);
                                                             }
                                                         })
                                                         .catch(collected => {
-                                                            message.channel.send('Timeout');
+                                                            const receivedEmbed = sentMessage.embeds[0];
+                                                            receivedEmbed.fields = [];
+                                                            const embedterminated = new Discord.MessageEmbed(receivedEmbed)
+                                                                .setColor('#2c5999')
+                                                                .setTitle('Timeout')
+                                                                .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
+                                                                .addFields(
+                                                                    { name: 'You took to long', value: 'You didnt answer in time, you took 30 seconds too long.' }
+                                                                ).setFooter('Help keep the bot running by donating! \nwww.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                                                            sentMessage.edit(embedterminated);
                                                         });
                                                 })
                                             } else {
-                                                message.channel.send(`Terminated: Invalid Response`)
+                                                const receivedEmbed = sentMessage.embeds[0];
+                                                receivedEmbed.fields = [];
+                                                const embedterminated = new Discord.MessageEmbed(receivedEmbed)
+                                                    .setColor('#2c5999')
+                                                    .setTitle('Review terminated')
+                                                    .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
+                                                    .addFields(
+                                                        { name: 'Your review was terminated', value: `${message.content} is not a valid response` }
+                                                    ).setFooter('Help keep the bot running by donating! \nwww.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                                                sentMessage.edit(embedterminated);
                                             }
                                         })
                                         .catch(collected => {
-                                            message.channel.send('Timeout');
+                                            const receivedEmbed = sentMessage.embeds[0];
+                                            receivedEmbed.fields = [];
+                                            const embedterminated = new Discord.MessageEmbed(receivedEmbed)
+                                                .setColor('#2c5999')
+                                                .setTitle('Timeout')
+                                                .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
+                                                .addFields(
+                                                    { name: 'You took to long', value: 'You didnt answer in time, you took 30 seconds too long.' }
+                                                ).setFooter('Help keep the bot running by donating! \nwww.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                                            sentMessage.edit(embedterminated);
                                         });
                                 })
                             }
                         });
                     } else {
-                        message.channel.send(`Terminated: Invalid Response`)
+                        const receivedEmbed = sentMessage.embeds[0];
+                        receivedEmbed.fields = [];
+                        const embedterminated = new Discord.MessageEmbed(receivedEmbed)
+                            .setColor('#2c5999')
+                            .setTitle('Review terminated')
+                            .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
+                            .addFields(
+                                { name: 'Your review was terminated', value: `${message.content} is not a valid response` }
+                            ).setFooter('Help keep the bot running by donating! \nwww.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                        sentMessage.edit(embedterminated);
                     }
                 })
                 .catch(collected => {
-                    message.channel.send('Timeout');
+                    const receivedEmbed = sentMessage.embeds[0];
+                    receivedEmbed.fields = [];
+                    const embedterminated = new Discord.MessageEmbed(receivedEmbed)
+                        .setColor('#2c5999')
+                        .setTitle('Timeout')
+                        .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
+                        .addFields(
+                            { name: 'You took to long', value: 'You didnt answer in time, you took 30 seconds too long.' }
+                        ).setFooter('Help keep the bot running by donating! \nwww.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                    sentMessage.edit(embedterminated);
                 });
         })
     }

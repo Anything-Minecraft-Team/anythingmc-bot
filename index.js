@@ -25,11 +25,7 @@ for (const file of commandFiles) {
 client.once('ready', () => {
     console.log('Bot On');
 
-    client.user.setActivity('Server Yes');
-
-    client.guilds.cache.forEach(guild => {
-        console.log(`${guild.name} | ${guild.id}`);
-    })
+    client.user.setActivity(' ');
 });
 
 var con = mysql.createConnection({
@@ -40,15 +36,10 @@ var con = mysql.createConnection({
     database: config.database
 });
 
-con.connect(function(err) {
+con.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
-    /**var sql = "CREATE TABLE pebblehost_reviews (userID int, rating int, review VARCHAR(1500))";
-    con.query(sql, function (err, result) {
-      if (err) throw err;
-      console.log("Table created");
-    });**/
-  });
+});
 
 client.on("guildCreate", guild => {
     db.add('bot.server', 1);
@@ -69,7 +60,7 @@ client.on('message', message => {
     //===========================
 
     if (command === 'test') {
-        
+
     }
 
     if (command === 'help') {
@@ -96,12 +87,17 @@ client.on('message', message => {
     //||    Owner Commands     ||
     //===========================
 
-    if(message.author.id === '474482013886480385'){
+    if (message.author.id === '474482013886480385') {
         if (command === 'changestatus') {
             client.commands.get('changestatus').execute(message, args, client);
+        } else if (command === 'createtable') {
+            client.commands.get('createtable').execute(message, args, Discord, con);
+        } else if (command === 'removetable') {
+            client.commands.get('removetable').execute(message, args, Discord, con);
+        } else if (command === 'reviewsubmitted') {
+            client.commands.get('reviewsubmitted').execute(message, args, Discord, con, client);
         }
     }
 });
-
 
 client.login(config.token);

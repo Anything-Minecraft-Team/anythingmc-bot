@@ -1,0 +1,75 @@
+module.exports = {
+    name: 'reviewsubmitted',
+    execute(message, args, Discord, con, client) {
+
+        con.query("SELECT * FROM review_queue", function (err, result) {
+            if (err) {
+                return console.log('Error1');
+            } else if (!result.length) {
+                return console.log('Error2');
+            } else if (!result[0].userID) {
+                return console.log('Error3');
+            } else {
+                const newEmbed = new Discord.MessageEmbed()
+                    .setColor('#2c5999')
+                    .setTitle('Review')
+                    .addFields(
+                        { name: `${result[0].userID}'s review`, value: `${result[0].review}\n${result[0].rating}\n${result[0].provider}` }
+                    )
+
+                let filter = m => m.author.id === message.author.id
+                message.channel.send(newEmbed).then(() => {
+                    message.channel.awaitMessages(filter, {
+                        max: 1,
+                        time: 30000,
+                        errors: ['time']
+                    })
+                        .then(message => {
+                            message = message.first()
+                            if (message.content.toLowerCase() === 'accept') {
+                                client.users.cache.get(result[0].userID).send('Your review has been accepted, good job!')
+
+                                var sql = `INSERT INTO ${result[0].provider}_reviews (userID, rating, review) VALUES ('${result[0].userID}', ${result[0].rating}, '${result[0].review}')`;
+                                con.query(sql, function (err, result) {
+                                    if (err) throw err;
+                                });
+
+                                var sql = `DELETE FROM review_queue WHERE userID = '${result[0].userID}'`;
+                                con.query(sql, function (err, result) {
+                                    if (err) throw err;
+                                });
+
+                                const newEmbed1 = new Discord.MessageEmbed()
+                                    .setColor('#2c5999')
+                                    .setTitle('Review')
+                                    .addFields(
+                                        { name: `Review Accepted`, value: `This review has been accepted` }
+                                    )
+
+                                message.channel.send(newEmbed1);
+                            } else if (message.content.toLowerCase() === 'decline') {
+                                client.users.cache.get(result[0].userID).send('Your review has been declined, this either happens because its inappropriate, a troll or spam')
+
+                                var sql = `DELETE FROM review_queue WHERE userID = '${result[0].userID}'`;
+                                con.query(sql, function (err, result) {
+                                    if (err) throw err;
+                                });
+
+                                const newEmbed2 = new Discord.MessageEmbed()
+                                    .setColor('#2c5999')
+                                    .setTitle('Review')
+                                    .addFields(
+                                        { name: `Review Declined`, value: `Review as declined` }
+                                    )
+
+                                message.channel.send(newEmbed2);
+                            }
+                        })
+                        .catch(collected => {
+                            message.channel.send('Timeout');
+                        });
+                });
+            }
+        })
+    }
+}

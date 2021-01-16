@@ -59,10 +59,6 @@ client.on('message', message => {
     //||     All Commands      ||
     //===========================
 
-    if (command === 'test') {
-
-    }
-
     if (command === 'help') {
         client.commands.get('help').execute(message, args, Discord);
     } else if (command === 'anticheat') {

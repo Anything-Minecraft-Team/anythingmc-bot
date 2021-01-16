@@ -2,19 +2,26 @@ module.exports = {
     name: 'reviewsubmitted',
     execute(message, args, Discord, con, client) {
 
-        con.query("SELECT * FROM review_queue", function (err, result) {
+        con.query("SELECT * FROM review_queue", function (err, result, rows) {
             if (err) {
                 return console.log('Error1');
-            } else if (!result.length) {
+            } else if (!result) {
                 return console.log('Error2');
-            } else if (!result[0].userID) {
-                return console.log('Error3');
+            } else if (result.length < 1){
+                const newEmbede = new Discord.MessageEmbed()
+                    .setColor('#2c5999')
+                    .setTitle('Review')
+                    .addFields(
+                        { name: `No reviews`, value: `There are no submitted reviews currently` }
+                    )
+
+                message.channel.send(newEmbede);
             } else {
                 const newEmbed = new Discord.MessageEmbed()
                     .setColor('#2c5999')
                     .setTitle('Review')
                     .addFields(
-                        { name: `${result[0].userID}'s review`, value: `${result[0].review}\n${result[0].rating}\n${result[0].provider}` }
+                        { name: `${client.users.cache.get(result[0].userID)}'s review`, value: `${result[0].review}\n${result[0].rating}\n${result[0].provider}` }
                     )
 
                 let filter = m => m.author.id === message.author.id

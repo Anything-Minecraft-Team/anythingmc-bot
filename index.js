@@ -75,9 +75,11 @@ client.on('message', message => {
         client.commands.get('code').execute(message, args, Discord);
     } else if (command === 'review') {
         client.commands.get('review').execute(message, args, Discord, con);
-    } //else if(command === 'compare'){
-    //client.commands.get('compare').execute(message, args, Discord);
-    //}
+    } else if (command === 'ratings') {
+        client.commands.get('ratings').execute(message, args, Discord, con, client);
+    } else if (command === 'invite') {
+        client.commands.get('invite').execute(message, args, Discord, con, config);
+    }
 
     //===========================
     //||    Owner Commands     ||

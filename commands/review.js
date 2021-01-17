@@ -1,6 +1,7 @@
 module.exports = {
     name: 'review',
-    execute(message, args, Discord, con) {
+    execute(message, args, Discord, con, config) {
+
         message.delete();
         const newEmbed = new Discord.MessageEmbed()
             .setColor('#2c5999')
@@ -10,7 +11,7 @@ module.exports = {
                 { name: 'What hosting provider would you like to review?', value: '[View a list of hosting providers you can review](https://github.com/JustDoom/minecraft-server-helper-bot/wiki/Reviewable-Hosting-Providers)' }
             ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
 
-        var hostingProviders = ['pebblehost', 'birdflop', 'mcprohosting', 'shockbyte', 'titannodes', 'mixmlhosting', 'winternode', 'atlasnode'];
+        var hostingProviders = ["pebblehost", "birdflop", "mcprohosting", "shockbyte", "titannodes", "mixmlhosting", "winternode", "atlasnode"];
 
         let filter = m => m.author.id === message.author.id
         message.channel.send(newEmbed).then(sentMessage => {

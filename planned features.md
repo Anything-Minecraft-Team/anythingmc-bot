@@ -3,6 +3,7 @@
 - fix spelling mistakes
 - more commands
 - finish and polish /review
+- view submitted reviews
 
 # Done
 - Rate hosting providers with the bot

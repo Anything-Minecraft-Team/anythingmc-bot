@@ -8,6 +8,7 @@ module.exports = {
         .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
         .addFields(
             {name: 'Prefix', value: 'The commands prefix is /'},
+            {name: '/invite', value: 'Sends the invite link for the discord bot!'},
             {name: '/review', value: 'Lets you review hosting providers through the bot, does not put the review on trustpilot or any other reviewing websites. This command is new and still in testing, if you find any bugs please contact the creator (JustDoom#1120) or make an issue on its github repo, to find it do /code. You currently cant see submitted reviews but that is being worked on currently.'},
             {name: '/anticheat', value: 'Brings up a list of suggested anti-cheat plugins'},
             {name: '/permission', value: 'Brings up a suggested permission plugin'},

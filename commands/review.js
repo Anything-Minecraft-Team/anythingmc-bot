@@ -1,6 +1,6 @@
 module.exports = {
     name: 'review',
-    execute(message, args, Discord, con, config, db) {
+    execute(message, args, Discord, con, db) {
         db.add('bot.commandsRun', 1);
 
         message.delete();

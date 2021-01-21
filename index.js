@@ -1,10 +1,10 @@
 const Discord = require('discord.js');
 
-var mysql = require('mysql');
+const mysql = require('mysql');
 
 const client = new Discord.Client();
 
-var db = require('quick.db')
+const db = require('quick.db')
 
 client.commands = new Discord.Collection();
 

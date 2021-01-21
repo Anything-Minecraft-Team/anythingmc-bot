@@ -1,6 +1,6 @@
 module.exports = {
     name: 'reviewsubmitted',
-    execute(message, args, Discord, con, client) {
+    execute(message, args, Discord, con, client, db) {
 
         con.query("SELECT * FROM review_queue", function (err, result, rows) {
             if (err) {
@@ -52,6 +52,8 @@ module.exports = {
                                     .addFields(
                                         { name: `Review Accepted`, value: `This review has been accepted` }
                                     )
+
+                                db.add('bot.reviewsSubmitted', 1);
 
                                 message.channel.send(newEmbed1);
                             } else if (message.content.toLowerCase() === 'decline') {

@@ -1,8 +1,9 @@
 module.exports = {
     name: 'ratings',
-    execute(message, args, Discord, con, client) {
+    execute(message, args, Discord, con, client, db) {
+        db.add('bot.commandsRun', 1);
 
-        var hostingProviders = ["pebblehost", "birdflop", "mcprohosting", "shockbyte", "titannodes", "mixmlhosting", "winternode", "atlasnode"];
+        var hostingProviders = ["pebblehost", "birdflop", "mcprohosting", "shockbyte", "titannodes", "mixmlhosting", "winternode", "atlasnode", "logicservers", "bisecthosting", "sparkedhost", "scalacube", "cubedhost", "ggservers", "anvilnode", "beastnode ", "hostinger", "meloncube", "ramshard"];
 
         if (!args.length < 1) {
             con.query(`SELECT * FROM ${args[0]}_reviews`, function (err, result, rows) {
@@ -39,9 +40,8 @@ module.exports = {
                         ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
 
                     message.channel.send(newEmbede).then(function (message) {
-                        message.react(`◀️`).then(() => message.react('▶️'));
+                        //message.react(`◀️`).then(() => message.react('▶️'));
                         
-
                     })
                 }
             })

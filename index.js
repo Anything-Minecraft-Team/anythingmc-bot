@@ -60,25 +60,27 @@ client.on('message', message => {
     //===========================
 
     if (command === 'help') {
-        client.commands.get('help').execute(message, args, Discord);
+        client.commands.get('help').execute(message, args, Discord, db);
     } else if (command === 'anticheat') {
-        client.commands.get('anticheat').execute(message, args, Discord);
+        client.commands.get('anticheat').execute(message, args, Discord, db);
     } else if (command === 'permission') {
-        client.commands.get('permission').execute(message, args, Discord);
+        client.commands.get('permission').execute(message, args, Discord, db);
     } else if (command === 'serverjar') {
-        client.commands.get('serverjar').execute(message, args, Discord);
+        client.commands.get('serverjar').execute(message, args, Discord, db);
     } else if (command === 'hosting' || command === 'hosts') {
-        client.commands.get('hosting').execute(message, args, Discord);
+        client.commands.get('hosting').execute(message, args, Discord, db);
     } else if (command === 'badhosting' || command === 'badhosts') {
-        client.commands.get('badhosting').execute(message, args, Discord);
+        client.commands.get('badhosting').execute(message, args, Discord, db);
     } else if (command === 'code' || command === 'github' || command === 'repo') {
-        client.commands.get('code').execute(message, args, Discord);
+        client.commands.get('code').execute(message, args, Discord, db);
     } else if (command === 'review') {
-        client.commands.get('review').execute(message, args, Discord, con);
+        client.commands.get('review').execute(message, args, Discord, con, db);
     } else if (command === 'ratings') {
-        client.commands.get('ratings').execute(message, args, Discord, con, client);
+        client.commands.get('ratings').execute(message, args, Discord, con, client, db);
     } else if (command === 'invite') {
-        client.commands.get('invite').execute(message, args, Discord, con, config);
+        client.commands.get('invite').execute(message, args, Discord, db);
+    } else if (command === 'stats') {
+        client.commands.get('stats').execute(message, args, Discord, db);
     }
 
     //===========================

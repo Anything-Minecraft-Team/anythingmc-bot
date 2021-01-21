@@ -1,6 +1,7 @@
 module.exports = {
     name: 'serverjar',
-    execute(message, args, Discord){
+    execute(message, args, Discord, db){
+        db.add('bot.commandsRun', 1);
         const newEmbed = new Discord.MessageEmbed()
         .setColor('#2c5999')
         .setTitle('Suggested Server Jars')

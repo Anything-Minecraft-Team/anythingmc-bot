@@ -1,6 +1,7 @@
 module.exports = {
     name: 'review',
-    execute(message, args, Discord, con, config) {
+    execute(message, args, Discord, con, config, db) {
+        db.add('bot.commandsRun', 1);
 
         message.delete();
         const newEmbed = new Discord.MessageEmbed()

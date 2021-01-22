@@ -95,7 +95,7 @@ client.on('message', message => {
         } else if (command === 'removetable') {
             client.commands.get('removetable').execute(message, args, Discord, con);
         } else if (command === 'reviewsubmitted') {
-            client.commands.get('reviewsubmitted').execute(message, args, Discord, con, client);
+            client.commands.get('reviewsubmitted').execute(message, args, Discord, con, client, db);
         }
     }
 });

@@ -53,6 +53,7 @@ module.exports = {
                                         { name: `Review Accepted`, value: `This review has been accepted` }
                                     )
 
+                                db.subtract('bot.pendingReviews', 1);
                                 db.add('bot.reviewsSubmitted', 1);
 
                                 message.channel.send(newEmbed1);

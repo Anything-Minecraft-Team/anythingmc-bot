@@ -9,6 +9,7 @@ module.exports = {
         .addFields(
             {name: `Commands run`, value: `${db.get('bot.commandsRun')}`},
             {name: `Reviews submitted`, value: `${db.get('bot.reviewsSubmitted')}`},
+            {name: `Pending Reviews`, value: `${db.get('bot.pendingReviews')}`},
             {name: `Servers`, value: `${db.get('bot.server')}`}
         ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
 

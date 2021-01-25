@@ -112,6 +112,7 @@ module.exports = {
                                                                                 con.query(`INSERT INTO review_queue (userID, rating, review, provider) VALUES (${message.author.id}, ${selectedRating}, '${reviewText}', '${selectedProvider}')`), (err, result) => {
                                                                                     if (err) throw err;
                                                                                 };
+                                                                                db.add('bot.pendingReviews', 1);
                                                                                 message.delete();
                                                                                 const receivedEmbed = sentMessage.embeds[0];
                                                                                 receivedEmbed.fields = [];

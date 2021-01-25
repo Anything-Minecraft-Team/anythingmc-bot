@@ -109,7 +109,7 @@ module.exports = {
                                                                         .then(message => {
                                                                             message = message.first()
                                                                             if (message.content.toLowerCase() === 'yes') {
-                                                                                con.query(`INSERT INTO review_queue (userID, rating, review, provider) VALUES (${message.author.id}, ${selectedRating}, '${reviewText}', '${selectedProvider}')`), (err, result) => {
+                                                                                con.query(`INSERT INTO review_queue (userID, rating, review, provider) VALUES ('${message.author.id}', ${selectedRating}, "${reviewText}", "${selectedProvider}")`), (err, result) => {
                                                                                     if (err) throw err;
                                                                                 };
                                                                                 db.add('bot.pendingReviews', 1);

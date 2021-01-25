@@ -47,6 +47,21 @@ client.on("guildCreate", guild => {
 
 client.on("guildDelete", guild => {
     db.subtract('bot.server', 1);
+
+    let channelID;
+    let channels = guild.channels.cache;
+
+    channelLoop:
+    for (let key in channels) {
+        let c = channels[key];
+        if (c[1].type === "text") {
+            channelID = c[0];
+            break channelLoop;
+        }
+    }
+
+    let channel = guild.channels.cache.get(guild.systemChannelID || channelID);
+    channel.send('Thank you for inviting my bot! Do /help to get started!')
 })
 
 client.on('message', message => {

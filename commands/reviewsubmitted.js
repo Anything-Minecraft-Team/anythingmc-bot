@@ -65,6 +65,8 @@ module.exports = {
                                     if (err) throw err;
                                 });
 
+                                db.subtract('bot.pendingReviews', 1);
+
                                 const newEmbed2 = new Discord.MessageEmbed()
                                     .setColor('#2c5999')
                                     .setTitle('Review')

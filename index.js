@@ -55,7 +55,7 @@ client.on('message', message => {
     const args = message.content.substring(prefix.length).split(" ");
     const command = args.shift().toLowerCase();
 
-    //===========================
+    //===========================f
     //||     All Commands      ||
     //===========================
 

@@ -21,8 +21,10 @@ module.exports = {
                     .setColor('#2c5999')
                     .setTitle('Review')
                     .addFields(
-                        { name: `${client.users.cache.get(result[0].userID)}'s review`, value: `${result[0].review}\n${result[0].rating}\n${result[0].provider}` }
+                        { name: `${client.users.cache.get(result[0].userID).username}'s review`, value: `${result[0].review}\n${result[0].rating}\n${result[0].provider}` }
                     )
+
+                    console.log(result[0]);
 
                 let filter = m => m.author.id === message.author.id
                 message.channel.send(newEmbed).then(() => {
@@ -34,9 +36,16 @@ module.exports = {
                         .then(message => {
                             message = message.first()
                             if (message.content.toLowerCase() === 'accept') {
-                                client.users.cache.get(result[0].userID).send('Your review has been accepted, good job!')
+                                console.log(result[0].userID);
+                                try{
+                                    client.users.cache.get(result[0].userID).send('Your review has been accepted, good job!')
+                                } catch(err){
+                                    console.log('Unable to send dm');
+                                    console.log(err);
+                                }
+                                
 
-                                var sql = `INSERT INTO ${result[0].provider}_reviews (userID, rating, review) VALUES ('${result[0].userID}', ${result[0].rating}, '${result[0].review}')`;
+                                var sql = `INSERT INTO ${result[0].provider}_reviews (userID, rating, review) VALUES ('${result[0].userID}', "${result[0].rating}", "${result[0].review}")`;
                                 con.query(sql, function (err, result) {
                                     if (err) throw err;
                                 });
@@ -79,6 +88,7 @@ module.exports = {
                         })
                         .catch(collected => {
                             message.channel.send('Timeout');
+                            console.log(collected);
                         });
                 });
             }

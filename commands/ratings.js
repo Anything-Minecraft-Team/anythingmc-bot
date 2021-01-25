@@ -14,7 +14,7 @@ module.exports = {
                         .setTitle(`Error`)
                         .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
                         .addFields(
-                            { name: `Not a recognised hosting provider`, value: `This hosting is not in the list or you accidentally made a spelling mistake.` }
+                            { name: `Not a recognised hosting provider`, value: `This hosting is not in the list or you accidentally made a spelling mistake.\nIf you would like to suggest a hosting provider to add you can do that [here](https://github.com/JustDoom/minecraft-server-helper-bot/issues)` }
                         ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
 
                     message.channel.send(newEmbede);
@@ -114,7 +114,7 @@ module.exports = {
                 .setTitle(`Error`)
                 .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
                 .addFields(
-                    { name: `No specified hosting provider`, value: `You need to enter a hosting provider from [this list](https://github.com/JustDoom/minecraft-server-helper-bot/wiki/Reviewable-Hosting-Providers) after the word rating like this, /ratings birdflop.` }
+                    { name: `No specified hosting provider`, value: `You need to enter a hosting provider from [this list](https://github.com/JustDoom/minecraft-server-helper-bot/wiki/Reviewable-Hosting-Providers) after the word rating like this, /ratings birdflop.\nIf you would like to suggest a hosting provider to add you can do that [here](https://github.com/JustDoom/minecraft-server-helper-bot/issues)` }
                 ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
 
             message.channel.send(newEmbede);

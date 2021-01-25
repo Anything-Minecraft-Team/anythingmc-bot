@@ -8,7 +8,7 @@ module.exports = {
             .setColor('#2c5999')
             .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
             .addFields(
-                { name: 'Which hosting provider would you like to review?', value: '[View a list of hosting providers you can review](https://github.com/JustDoom/minecraft-server-helper-bot/wiki/Reviewable-Hosting-Providers)' }
+                { name: 'Which hosting provider would you like to review?', value: '[View a list of hosting providers you can review](https://github.com/JustDoom/minecraft-server-helper-bot/wiki/Reviewable-Hosting-Providers)\nIf you would like to suggest a hosting provider to add you can do that [here](https://github.com/JustDoom/minecraft-server-helper-bot/issues)' }
             ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
 
         var hostingProviders = ["pebblehost", "birdflop", "mcprohosting", "shockbyte", "titannodes", "mixmlhosting", "winternode", "atlasnode", "logicservers", "bisecthosting", "sparkedhost", "scalacube", "cubedhost", "ggservers", "anvilnode", "beastnode ", "hostinger", "meloncube", "ramshard", "skynode", "minehut", "aternos"];

@@ -36,7 +36,6 @@ module.exports = {
                         .then(message => {
                             message = message.first()
                             if (message.content.toLowerCase() === 'accept') {
-                                console.log(result[0].userID);
                                 try{
                                     client.users.cache.get(result[0].userID).send('Your review has been accepted, good job!')
                                 } catch(err){
@@ -67,7 +66,12 @@ module.exports = {
 
                                 message.channel.send(newEmbed1);
                             } else if (message.content.toLowerCase() === 'decline') {
-                                client.users.cache.get(result[0].userID).send('Your review has been declined, this either happens because its inappropriate, a troll or spam')
+                                try{
+                                    client.users.cache.get(result[0].userID).send('Your review has been declined, this either happens because its inappropriate, a troll or spam')
+                                } catch(err){
+                                    console.log('Unable to send dm');
+                                    console.log(err);
+                                }
 
                                 var sql = `DELETE FROM review_queue WHERE userID = '${result[0].userID}'`;
                                 con.query(sql, function (err, result) {

@@ -6,6 +6,10 @@ const client = new Discord.Client();
 
 const db = require('quick.db')
 
+var os = require('node-os-utils');
+
+var moment = require('moment');
+
 client.commands = new Discord.Collection();
 
 const config = require('./config.json');
@@ -94,8 +98,8 @@ client.on('message', message => {
         client.commands.get('ratings').execute(message, args, Discord, con, client, db);
     } else if (command === 'invite') {
         client.commands.get('invite').execute(message, args, Discord, db);
-    } else if (command === 'stats') {
-        client.commands.get('stats').execute(message, args, Discord, db);
+    } else if (command === 'stats' || command === 'status') {
+        client.commands.get('stats').execute(message, args, Discord, db, os, client, moment);
     }
 
     //===========================
@@ -111,6 +115,8 @@ client.on('message', message => {
             client.commands.get('removetable').execute(message, args, Discord, con);
         } else if (command === 'reviewsubmitted') {
             client.commands.get('reviewsubmitted').execute(message, args, Discord, con, client, db);
+        } else if (command === 'quickdb') {
+            client.commands.get('quickdb').execute(message, args, Discord, db);
         }
     }
 });

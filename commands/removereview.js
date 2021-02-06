@@ -1,7 +1,7 @@
 module.exports = {
     name: 'removereview',
     execute(message, args, Discord, con, client, db) {
-        var hostingProviders = ["pebblehost", "birdflop", "mcprohosting", "shockbyte", "titannodes", "mixmlhosting", "winternode", "atlasnode", "logicservers", "bisecthosting", "sparkedhost", "scalacube", "cubedhost", "ggservers", "anvilnode", "beastnode ", "hostinger", "meloncube", "ramshard", "skynode", "minehut", "aternos", "dedicatedmc", "elixirnode"];
+        var hostingProviders = ["pebblehost", "birdflop", "mcprohosting", "shockbyte", "titannodes", "mixmlhosting", "winternode", "atlasnode", "logicservers", "bisecthosting", "sparkedhost", "scalacube", "cubedhost", "ggservers", "anvilnode", "beastnode ", "hostinger", "meloncube", "ramshard", "skynode", "minehut", "aternos", "dedicatedmc", "elixirnode", "forestracks"];
 
         if (args.length && hostingProviders.includes(args[0].toLowerCase())) {
 
@@ -32,6 +32,8 @@ module.exports = {
                                             throw err;
                                         }
                                     });
+
+                                    db.subtract('bot.reviewsSubmitted', 1);
 
                                     message.delete();
                                     const receivedEmbed = sentMessage.embeds[0];

@@ -100,6 +100,8 @@ client.on('message', message => {
         client.commands.get('invite').execute(message, args, Discord, db);
     } else if (command === 'stats' || command === 'status') {
         client.commands.get('stats').execute(message, args, Discord, db, os, client, moment);
+    } else if (command === 'removereview') {
+        client.commands.get('removereview').execute(message, args, Discord, con, client, db);
     }
 
     //===========================
@@ -117,6 +119,8 @@ client.on('message', message => {
             client.commands.get('reviewsubmitted').execute(message, args, Discord, con, client, db);
         } else if (command === 'quickdb') {
             client.commands.get('quickdb').execute(message, args, Discord, db);
+        } else if (command === 'quickdb') {
+            client.commands.get('quickdb').execute(message, args, Discord);
         }
     }
 });

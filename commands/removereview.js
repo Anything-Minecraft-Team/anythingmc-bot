@@ -1,7 +1,7 @@
 module.exports = {
     name: 'removereview',
     execute(message, args, Discord, con, client, db) {
-        var hostingProviders = ["pebblehost", "birdflop", "mcprohosting", "shockbyte", "titannodes", "mixmlhosting", "winternode", "atlasnode", "logicservers", "bisecthosting", "sparkedhost", "scalacube", "cubedhost", "ggservers", "anvilnode", "beastnode ", "hostinger", "meloncube", "ramshard", "skynode", "minehut", "aternos", "dedicatedmc", "elixirnode", "forestracks"];
+        var hostingProviders = ["pebblehost", "birdflop", "mcprohosting", "shockbyte", "titannodes", "mixmlhosting", "winternode", "atlasnode", "logicservers", "bisecthosting", "sparkedhost", "scalacube", "cubedhost", "ggservers", "anvilnode", "beastnode ", "hostinger", "meloncube", "ramshard", "skynode", "minehut", "aternos", "dedicatedmc", "elixirnode", "forestracks", "byteania"];
 
         if (args.length && hostingProviders.includes(args[0].toLowerCase())) {
 

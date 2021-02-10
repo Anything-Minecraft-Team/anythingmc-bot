@@ -22,7 +22,7 @@ module.exports = {
             {name: '/stats', value: 'Displays statistics about the bot'},
             {name: 'Feature Request', value: 'If you would like to suggest a hosting provider to add you can do that [here](https://github.com/JustDoom/minecraft-server-helper-bot/issues)'}
             
-        ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+            ).setFooter('Help keep the bot running by donating! PayPal.Me/justdoom')
 
         message.channel.send(newEmbed);
     }

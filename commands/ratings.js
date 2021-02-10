@@ -13,7 +13,7 @@ module.exports = {
                         .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
                         .addFields(
                             { name: `Not a recognised hosting provider`, value: `This hosting is not in the list or you accidentally made a spelling mistake.\nIf you would like to suggest a hosting provider to add you can do that [here](https://github.com/JustDoom/minecraft-server-helper-bot/issues)` }
-                        ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                        ).setFooter('Help keep the bot running by donating! PayPal.Me/justdoom')
 
                     message.channel.send(newEmbede);
                 } else if (!result) {
@@ -25,7 +25,7 @@ module.exports = {
                         .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
                         .addFields(
                             { name: `No reviews`, value: `There are no submitted reviews currently` }
-                        ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                        ).setFooter('Help keep the bot running by donating! PayPal.Me/justdoom')
 
                     message.channel.send(newEmbede);
                 } else {
@@ -37,7 +37,7 @@ module.exports = {
                             .addFields(
                                 { name: `${user.username}'s Review`, value: `${result[0].review}` },
                                 { name: `Rating`, value: `${result[0].rating}` }
-                            ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                            ).setFooter('Help keep the bot running by donating! PayPal.Me/justdoom')
 
                         message.channel.send(newEmbede).then(function (bmessage) {
                             bmessage.react(`◀️`).then(() => bmessage.react('▶️'));
@@ -73,7 +73,7 @@ module.exports = {
                                             .addFields(
                                                 { name: `${user.username}'s Review`, value: `${result[page].review}` },
                                                 { name: 'Rating', value: `${result[page].rating}` }
-                                            ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                                            ).setFooter('Help keep the bot running by donating! PayPal.Me/justdoom')
 
                                         mess.edit(newEmbedReviewed);
                                     })
@@ -93,7 +93,7 @@ module.exports = {
                                             .addFields(
                                                 { name: `${user.username}'s Review`, value: `${result[page].review}` },
                                                 { name: 'Rating', value: `${result[page].rating}` }
-                                            ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                                            ).setFooter('Help keep the bot running by donating! PayPal.Me/justdoom')
 
                                         mess.edit(newEmbedReviewed);
                                     })
@@ -113,7 +113,7 @@ module.exports = {
                 .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
                 .addFields(
                     { name: `No specified hosting provider`, value: `You need to enter a hosting provider from [this list](https://github.com/JustDoom/minecraft-server-helper-bot/wiki/Reviewable-Hosting-Providers) after the word rating like this, /ratings birdflop.\nIf you would like to suggest a hosting provider to add you can do that [here](https://github.com/JustDoom/minecraft-server-helper-bot/issues)` }
-                ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                ).setFooter('Help keep the bot running by donating! PayPal.Me/justdoom')
 
             message.channel.send(newEmbede);
         }

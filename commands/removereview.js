@@ -13,7 +13,7 @@ module.exports = {
                         .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
                         .addFields(
                             { name: `Are you sure?`, value: `Are you sure you want to remove your review?\nYes/No` }
-                        ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                        ).setFooter('Help keep the bot running by donating! PayPal.Me/justdoom')
 
                     let filter = m => m.author.id === message.author.id
                     message.channel.send(newEmbed2).then(sentMessage => {
@@ -43,7 +43,7 @@ module.exports = {
                                         .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
                                         .addFields(
                                             { name: 'Review Removed', value: 'Your review has been removed.' }
-                                        ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                                        ).setFooter('Help keep the bot running by donating! PayPal.Me/justdoom')
 
                                     sentMessage.edit(newEmbedReviewed);
                                 } else if (message.content.toLowerCase() === 'no') {
@@ -55,7 +55,7 @@ module.exports = {
                                         .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
                                         .addFields(
                                             { name: 'Review Remove Canceled', value: 'Your review will not be removed.' }
-                                        ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                                        ).setFooter('Help keep the bot running by donating! PayPal.Me/justdoom')
 
                                     sentMessage.edit(newEmbedReviewed);
                                 }
@@ -67,7 +67,7 @@ module.exports = {
                         .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
                         .addFields(
                             { name: `Couldn't get review`, value: `You don't have a review for this hosting company or there was an error.` }
-                        ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                        ).setFooter('Help keep the bot running by donating! PayPal.Me/justdoom')
 
                     message.channel.send(newEmbed);
                 }
@@ -78,7 +78,7 @@ module.exports = {
                 .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
                 .addFields(
                     { name: `Invalid Provider`, value: `This is not a valid hosting provider. Look at the full list [here](https://github.com/JustDoom/minecraft-server-helper-bot/wiki/Reviewable-Hosting-Providers)` }
-                ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+                ).setFooter('Help keep the bot running by donating! PayPal.Me/justdoom')
 
             message.channel.send(newEmbed);
         }

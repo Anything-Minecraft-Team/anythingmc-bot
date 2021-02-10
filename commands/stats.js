@@ -20,12 +20,12 @@ module.exports = {
                 { name: `Commands Run`, value: `${db.get('bot.commandsRun')}` },
                 { name: `Reviews Submitted`, value: `${db.get('bot.reviewsSubmitted')}` },
                 { name: `Pending Reviews`, value: `${db.get('bot.pendingReviews')}` },
-                { name: `Servers`, value: `${db.get('bot.server')}` },
+                { name: `Servers`, value: `${client.guilds.cache.size}` },
                 // {name: `CPU usage`, value: `${cpuPercent}`},
                 { name: `RAM Usage`, value: `${Math.round(used * 100) / 100} MB` },
                 { name: `Uptime`, value: `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds` },
                 { name: `Ping`, value: `${Date.now() - message.createdTimestamp}ms`}
-            ).setFooter('Help keep the bot running by donating! www.paypal.com/donate?hosted_button_id=L8J9H7HTRY7L4')
+            ).setFooter('Help keep the bot running by donating! PayPal.Me/justdoom')
 
         message.channel.send(newEmbed);
     }

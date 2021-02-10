@@ -26,10 +26,11 @@ for (const file of commandFiles) {
 }
 
 
-client.once('ready', () => {
+client.on('ready', () => {
     console.log('Bot On');
 
-    client.user.setActivity('Birdflop Hosting!');
+    var status = db.get(`bot.status`);
+    client.user.setActivity(status);
 });
 
 var con = mysql.createConnection({
@@ -44,29 +45,6 @@ con.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
 });
-
-client.on("guildCreate", guild => {
-    db.add('bot.server', 1);
-})
-
-client.on("guildDelete", guild => {
-    db.subtract('bot.server', 1);
-
-    let channelID;
-    let channels = guild.channels.cache;
-
-    channelLoop:
-    for (let key in channels) {
-        let c = channels[key];
-        if (c[1].type === "text") {
-            channelID = c[0];
-            break channelLoop;
-        }
-    }
-
-    let channel = guild.channels.cache.get(guild.systemChannelID || channelID);
-    channel.send('Thank you for inviting my bot! Do /help to get started!')
-})
 
 client.on('message', message => {
     if (!message.content.startsWith(prefix) || message.author.bot) return;
@@ -110,7 +88,7 @@ client.on('message', message => {
 
     if (message.author.id === '474482013886480385') {
         if (command === 'changestatus') {
-            client.commands.get('changestatus').execute(message, args, client);
+            client.commands.get('changestatus').execute(message, args, client, db);
         } else if (command === 'createtable') {
             client.commands.get('createtable').execute(message, args, Discord, con);
         } else if (command === 'removetable') {
@@ -119,8 +97,8 @@ client.on('message', message => {
             client.commands.get('reviewsubmitted').execute(message, args, Discord, con, client, db);
         } else if (command === 'quickdb') {
             client.commands.get('quickdb').execute(message, args, Discord, db);
-        } else if (command === 'quickdb') {
-            client.commands.get('quickdb').execute(message, args, Discord);
+        } else if (command === 'servers'){
+            client.commands.get('servers').execute(message, args, Discord, client);
         }
     }
 });

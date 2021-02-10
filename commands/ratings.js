@@ -30,24 +30,38 @@ module.exports = {
                     message.channel.send(newEmbede);
                 } else {
                     client.users.fetch(result[0].userID).then((user) => {
-                        const newEmbede = new Discord.MessageEmbed()
-                            .setColor('#2c5999')
-                            .setTitle(`${args[0]} Reviews`)
-                            .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
-                            .addFields(
-                                { name: `${user.username}'s Review`, value: `${result[0].review}` },
-                                { name: `Rating`, value: `${result[0].rating}` }
-                            ).setFooter('Help keep the bot running by donating! PayPal.Me/justdoom')
 
-                        message.channel.send(newEmbede).then(function (bmessage) {
-                            bmessage.react(`◀️`).then(() => bmessage.react('▶️'));
-                            reactionWait(bmessage, result.length - 1, 0, message);
+                        con.query(`SELECT rating FROM ${args[0]}_reviews`, function (err, result2, rows) {
+                            if (err) throw err;
+                            var overallRating = 0;
+                            var total = 0;
+                            var i;
+                            for (i = 0; i < result2.length; i++) {
+                                total = total + result2[i].rating;
+                            }
+
+                            overallRating = total / result2.length;
+
+                            const newEmbede = new Discord.MessageEmbed()
+                                .setColor('#2c5999')
+                                .setTitle(`${args[0]} Reviews`)
+                                .setAuthor(`${message.author.username}`, `${message.author.avatarURL()}`)
+                                .addFields(
+                                    { name: `Overall Rating`, value: `${overallRating}` },
+                                    { name: `${user.username}'s Review`, value: `${result[0].review}` },
+                                    { name: `Rating`, value: `${result[0].rating}` }
+                                ).setFooter('Help keep the bot running by donating! PayPal.Me/justdoom')
+
+                            message.channel.send(newEmbede).then(function (bmessage) {
+                                bmessage.react(`◀️`).then(() => bmessage.react('▶️'));
+                                reactionWait(bmessage, result.length - 1, 0, message);
+                            })
                         })
                     })
                 }
 
                 function reactionWait(mess, len, page, author) {
-                    
+
                     const filter = (reaction, user) => {
                         return ['◀️', '▶️'].includes(reaction.emoji.name) && user.id === author.author.id;
                     };
@@ -117,5 +131,13 @@ module.exports = {
 
             message.channel.send(newEmbede);
         }
+    }
+}
+
+function getRating() {
+    try {
+
+    } catch {
+
     }
 }

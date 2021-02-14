@@ -80,6 +80,8 @@ client.on('message', message => {
         client.commands.get('stats').execute(message, args, Discord, db, os, client, moment);
     } else if (command === 'removereview') {
         client.commands.get('removereview').execute(message, args, Discord, con, client, db);
+    } else if (command === 'editreview') {
+        client.commands.get('editreview').execute(message, args, Discord, con, client, db);
     }
 
     //===========================

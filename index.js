@@ -3,6 +3,7 @@ const Discord = require('discord.js');
 const mysql = require('mysql');
 
 const client = new Discord.Client();
+const client2 = new Discord.Client();
 
 const db = require('quick.db')
 
@@ -12,27 +13,16 @@ var moment = require('moment');
 
 client.commands = new Discord.Collection();
 
+client2.commands = new Discord.Collection();
+
 const config = require('./config.json');
 
 const fs = require('fs');
 
 const prefix = '/';
+const prefix2 = '?';
 
-const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
-for (const file of commandFiles) {
-    const command = require(`./commands/${file}`);
-
-    client.commands.set(command.name, command);
-}
-
-
-client.on('ready', () => {
-    console.log('Bot On');
-
-    var status = db.get(`bot.status`);
-    client.user.setActivity(status);
-});
-
+//mysql
 var con = mysql.createConnection({
     host: config.host,
     user: config.user,
@@ -44,6 +34,40 @@ var con = mysql.createConnection({
 con.connect(function (err) {
     if (err) throw err;
     console.log("Connected!");
+});
+
+//client1
+
+const commandFiles = fs.readdirSync('./commands/').filter(file => file.endsWith('.js'));
+for (const file of commandFiles) {
+    const command = require(`./commands/${file}`);
+
+    client.commands.set(command.name, command);
+}
+
+client.on('error', (e) => {
+    console.log(e + 'test')
+    fs.writeFile('log.txt', e, function (err) {
+        if (err) return console.log(err);
+    });
+});
+
+client.on("warn", (e) => {
+    fs.writeFile('log.txt', e, function (err) {
+        if (err) return console.log(err);
+    });
+});
+  client.on("debug", (e) => {
+      fs.writeFile('log.txt', e, function (err) {
+        if (err) return console.log(err);
+    });
+  });
+
+client.on('ready', () => {
+    console.log('Bot On');
+
+    var status = db.get(`bot.status`);
+    client.user.setActivity(status);
 });
 
 client.on('message', message => {
@@ -99,10 +123,37 @@ client.on('message', message => {
             client.commands.get('reviewsubmitted').execute(message, args, Discord, con, client, db);
         } else if (command === 'quickdb') {
             client.commands.get('quickdb').execute(message, args, Discord, db);
-        } else if (command === 'servers'){
+        } else if (command === 'servers') {
             client.commands.get('servers').execute(message, args, Discord, client);
         }
     }
 });
 
 client.login(config.token);
+
+//client2
+
+const commandFiles2 = fs.readdirSync('./modcommands/').filter(file => file.endsWith('.js'));
+for (const file of commandFiles2) {
+    const command = require(`./modcommands/${file}`);
+
+    client2.commands.set(command.name, command);
+}
+
+client2.on('ready', () => {
+    console.log('Bot 2 On');
+    client2.user.setActivity('Moderating AnythingMC Discord');
+});
+
+client2.on('message', message => {
+    if (!message.content.startsWith(prefix2) || message.author.bot) return;
+
+    const args = message.content.substring(prefix2.length).split(" ");
+    const command = args.shift().toLowerCase();
+
+    if (command === 'whatimdoing' && command === 'whatiamdoing') {
+        client2.commands.get('whatimdoing').execute(message, args, Discord, client2);
+    }
+});
+
+client2.login(config.token2);

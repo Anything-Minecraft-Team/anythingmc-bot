@@ -154,6 +154,10 @@ client2.on('message', message => {
     if (command === 'whatimdoing' && command === 'whatiamdoing') {
         client2.commands.get('whatimdoing').execute(message, args, Discord, client2);
     }
+
+    if (message.author.id === '474482013886480385' || message.author.id === '371331470230290435') {
+        
+    }
 });
 
 client2.login(config.token2);

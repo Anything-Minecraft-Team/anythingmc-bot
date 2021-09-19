@@ -66,6 +66,8 @@ client.on('message', message => {
         client.commands.get('help').execute(message, args, Discord, db);
     } else if (command === 'stats' || command === 'status') {
         client.commands.get('stats').execute(message, args, Discord, db, client);
+    } else if (command === 'serverssize') {
+        client.commands.get('serverssize').execute(message, args, Discord, db, client);
     }
 
     // owner commands

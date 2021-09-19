@@ -13,6 +13,12 @@ module.exports = {
 
         const used = (process.memoryUsage().heapUsed / 1024 / 1024 * 2).toFixed(2);
 
+        const guilds = client.guilds.cache;
+        var users = 0;
+        guilds.forEach(g => {
+            users = users + g.members.cache.size;
+        });
+
         const newEmbed = new Discord.MessageEmbed()
         .setColor('#2c5999')
         .setTitle('Stats')
@@ -20,6 +26,7 @@ module.exports = {
         .addFields(
             { name: `Commands Run`, value: `${db.get('bot.commandsRun')}` },
             { name: `Servers`, value: `${client.guilds.cache.size}` },
+            { name: `Total Users`, value: users },
             {name: 'Ram Usage', value: `${Math.round(used * 100) / 100} MB`},
             { name: `Uptime`, value: `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds` },
             { name: `Ping`, value: `${Date.now() - message.createdTimestamp}ms`}

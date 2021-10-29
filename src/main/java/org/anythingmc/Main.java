@@ -1,19 +1,23 @@
 package org.anythingmc;
 
 import com.google.gson.Gson;
+import com.jagrosh.jdautilities.commons.waiter.EventWaiter;
 import net.dv8tion.jda.api.JDA;
 import net.dv8tion.jda.api.JDABuilder;
 import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
-import org.anythingmc.commands.ReviewCommand;
+import org.anythingmc.commands.CommandHandler;
 import org.anythingmc.config.Config;
+import org.anythingmc.database.Database;
 
 import javax.security.auth.login.LoginException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class Main implements EventListener {
 
@@ -21,19 +25,26 @@ public class Main implements EventListener {
     public static Config config;
     private static JDA jda;
     private static JDABuilder builder;
+    private static EventWaiter waiter;
+    private static Database database;
 
-    private static String prefix = "!";
+    private static final String prefix = "!";
 
-    public static void main(String[] args) throws LoginException, IOException {
+    public static void main(String[] args) throws LoginException, IOException, SQLException {
 
         String data = Files.readString(Path.of("config.json"));
         config = gson.fromJson(data, Config.class);
 
+        database = new Database(config.host, config.password, config.user, config.port, config.database);
+
+        waiter = new EventWaiter();
+
         builder = JDABuilder.createDefault(config.token)
-                .addEventListeners(new ReviewCommand());
+                .addEventListeners(new CommandHandler(), waiter);
 
         jda = builder.build();
 
+        jda.getPresence().setActivity(Activity.playing("anythingmc.org"));
 
         //jda.upsertCommand("ping", "Calculate ping of the bot").queue();
     }
@@ -47,6 +58,10 @@ public class Main implements EventListener {
                 e.printStackTrace();
             }
         }
+    }
+
+    public static EventWaiter getEventWaiter() {
+        return waiter;
     }
 
     public static String getPrefix() {
@@ -63,5 +78,9 @@ public class Main implements EventListener {
 
     public static JDABuilder getBuilder() {
         return builder;
+    }
+
+    public static Database getDatabase() {
+        return database;
     }
 }

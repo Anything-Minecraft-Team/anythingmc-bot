@@ -65,7 +65,7 @@ public class ReviewCommand {
                             }
                             message.editMessage(embedBuilder
                                     .setTitle("AnythingMC Bot Review")
-                                    .setDescription("You may now write your review. You have ten minutes")
+                                    .setDescription("You may now write your review. You have ten minutes and a 512 character limit.")
                                     .setFooter("Help keep the bot running by donating! ko-fi.com/justdoom")
                                     .build()).queue(message1 -> Main.getEventWaiter().waitForEvent( // Setup Wait action once message was send
                                             MessageReceivedEvent.class,
@@ -102,7 +102,7 @@ public class ReviewCommand {
                                                                         case "y":
                                                                             message.editMessage(embedBuilder
                                                                                     .setTitle("AnythingMC Bot Review")
-                                                                                    .setDescription("How many stars do you rate this host out of 5? You have 1 minute")
+                                                                                    .setDescription("How many stars do you rate this host? 1-5 stars. You have 1 minute.")
                                                                                     .setFooter("Help keep the bot running by donating! ko-fi.com/justdoom")
                                                                                     .build()).queue(message3 -> Main.getEventWaiter().waitForEvent( // Setup Wait action once message was send
                                                                                     MessageReceivedEvent.class,

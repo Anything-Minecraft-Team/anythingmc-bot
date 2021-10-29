@@ -4,6 +4,7 @@ import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.anythingmc.Main;
+import org.anythingmc.util.ReviewUtil;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -27,7 +28,7 @@ public class ReviewsCommand {
                     EmbedBuilder embedBuilder = new EmbedBuilder()
                             .setAuthor(user.getName(), null, user.getAvatarUrl())
                             .addField("Review", rs.getString("review"), false)
-                            .addField("Rating", String.valueOf(rs.getInt("rating")), false)
+                            .addField("Rating", ReviewUtil.getStars(String.valueOf(rs.getInt("rating"))), false)
                             .setFooter("Id: " + rs.getString("review_id") + "\nHelp keep the bot running by donating! ko-fi.com/justdoom");
                     event.getTextChannel().sendMessage(embedBuilder.build()).queue();
                 } catch (SQLException throwables) {
@@ -47,7 +48,7 @@ public class ReviewsCommand {
                     EmbedBuilder embedBuilder = new EmbedBuilder()
                             .setAuthor(user.getName(), null, user.getAvatarUrl())
                             .addField("Review", rs.getString("review"), false)
-                            .addField("Rating", String.valueOf(rs.getInt("rating")), false)
+                            .addField("Rating", ReviewUtil.getStars(String.valueOf(rs.getInt("rating"))), false)
                             .setFooter("Id: " + rs.getString("review_id") + "\nHelp keep the bot running by donating! ko-fi.com/justdoom");
                     event.getTextChannel().sendMessage(embedBuilder.build()).queue();
                 } catch (SQLException throwables) {

@@ -9,9 +9,9 @@ import org.anythingmc.Main;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class WaitingApprovalCommand {
+public class PendingApprovalCommand {
 
-    public WaitingApprovalCommand(String[] args, MessageReceivedEvent event) {
+    public PendingApprovalCommand(String[] args, MessageReceivedEvent event) {
         if(!event.getAuthor().getId().equals("474482013886480385")) return;
 
         try {
@@ -24,7 +24,7 @@ public class WaitingApprovalCommand {
                 waiting++;
             }
 
-            event.getTextChannel().sendMessage(waiting + " reviews waiting approval").queue();
+            event.getTextChannel().sendMessage(waiting + " reviews pending approval").queue();
             resultSet.next();
 
             ResultSet resultSet1 = Main.getDatabase().getStmt().executeQuery(

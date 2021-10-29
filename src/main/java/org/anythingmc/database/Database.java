@@ -22,7 +22,7 @@ public class Database {
                     "`id` VARCHAR(36) NOT NULL, " +
                     "`review_id` VARCHAR(36) NOT NULL, " +
                     "`rating` INT NOT NULL, " +
-                    "`review` VARCHAR(512) NOT NULL, " +
+                    "`review` VARCHAR(1024) NOT NULL, " +
                     "`host` VARCHAR(128) NOT NULL, " +
                     "`awaiting_review` VARCHAR(5) NOT NULL, " +
                     "PRIMARY KEY (`review_id`) " +

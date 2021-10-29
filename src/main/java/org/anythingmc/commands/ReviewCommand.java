@@ -14,8 +14,6 @@ import java.util.concurrent.TimeUnit;
 
 public class ReviewCommand {
 
-    private final ArrayList<String> hosts = new ArrayList<>(Arrays.asList("titannodes", "birdflop", "bloom"));
-
     public ReviewCommand(String[] args, MessageReceivedEvent event) {
         /**
          * Host select
@@ -38,7 +36,7 @@ public class ReviewCommand {
                             return e.getAuthor().getIdLong() == event.getAuthor().getIdLong(); // Check for same author
                         },
                         e -> {
-                            if (!hosts.contains(e.getMessage().getContentRaw().toLowerCase())) {
+                            if (!Main.getHosts().contains(e.getMessage().getContentRaw().toLowerCase())) {
                                 message.editMessage("That host has not been added :(").queue();
                                 message.suppressEmbeds(true).queue();
                                 return;
@@ -65,7 +63,7 @@ public class ReviewCommand {
                             }
                             message.editMessage(embedBuilder
                                     .setTitle("AnythingMC Bot Review")
-                                    .setDescription("You may now write your review. You have ten minutes and a 512 character limit.")
+                                    .setDescription("You may now write your review. You have ten minutes and a 1024 character limit.")
                                     .setFooter("Help keep the bot running by donating! ko-fi.com/justdoom")
                                     .build()).queue(message1 -> Main.getEventWaiter().waitForEvent( // Setup Wait action once message was send
                                             MessageReceivedEvent.class,
@@ -130,9 +128,9 @@ public class ReviewCommand {
                                                                                                 resultSet.next();
 
                                                                                                 Main.getDatabase().getStmt().executeUpdate(
-                                                                                                        "INSERT INTO reviews (id, review_id, rating, review, host, awaiting_review) VALUES ('" + msg.getAuthor().getId() +
-                                                                                                                "', '" +(resultSet.getInt("maxid") + 1) + "', " + Integer.valueOf(e3.getMessage().getContentRaw()) + ", '" + e1.getMessage().getContentRaw() +
-                                                                                                                "', '" + e.getMessage().getContentRaw().toLowerCase() + "', 'true')");
+                                                                                                        "INSERT INTO reviews (id, review_id, rating, review, host, awaiting_review) VALUES (\"" + msg.getAuthor().getId() +
+                                                                                                                "\", \"" +(resultSet.getInt("maxid") + 1) + "\", " + Integer.valueOf(e3.getMessage().getContentRaw()) + ", \"" + e1.getMessage().getContentRaw() +
+                                                                                                                "\", \"" + e.getMessage().getContentRaw().toLowerCase() + "\", \"true\")");
                                                                                             } catch (SQLException ex) {
                                                                                                 message.suppressEmbeds(true).queue();
                                                                                                 message.editMessage("There was an error submitting this review, sorry").queue();

@@ -16,8 +16,9 @@ import javax.security.auth.login.LoginException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 public class Main implements EventListener {
 
@@ -29,6 +30,9 @@ public class Main implements EventListener {
     private static Database database;
 
     private static final String prefix = "!";
+
+    private static final ArrayList<String> hosts = new ArrayList<>(Arrays.asList("titannodes", "birdflop", "bloom",
+            "apexhosting", "mcprohosting", "mchostingpro", "shockbyte", "forestracks", "pebblehost", "dedicatedmc"));
 
     public static void main(String[] args) throws LoginException, IOException, SQLException {
 
@@ -82,5 +86,9 @@ public class Main implements EventListener {
 
     public static Database getDatabase() {
         return database;
+    }
+
+    public static ArrayList<String> getHosts() {
+        return hosts;
     }
 }

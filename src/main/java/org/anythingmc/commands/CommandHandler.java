@@ -65,6 +65,9 @@ public class CommandHandler extends ListenerAdapter {
             case "approve":
                 new ApproveCommand(args, event);
                 break;
+            case "reviews":
+                new ReviewsCommand(args, event);
+                break;
         }
     }
 }

@@ -51,6 +51,12 @@
             <version>8.0.26</version>
             <scope>compile</scope>
         </dependency>
+
+        <dependency>
+            <groupId>org.ocpsoft.prettytime</groupId>
+            <artifactId>prettytime</artifactId>
+            <version>5.0.2.Final</version>
+        </dependency>
     </dependencies>
 
     <repositories>

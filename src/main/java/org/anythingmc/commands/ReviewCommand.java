@@ -3,8 +3,11 @@ package org.anythingmc.commands;
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.Permission;
 import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import org.anythingmc.Main;
+import org.anythingmc.commands.api.DiscordCommand;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -12,28 +15,27 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
-public class ReviewCommand {
+public class ReviewCommand extends DiscordCommand {
 
-    public ReviewCommand(String[] args, MessageReceivedEvent event) {
+    @Override
+    public void onCommand(User author, Message msg, TextChannel textChannel, String[] args) {
         /**
          * Host select
          */
 
-        Message msg = event.getMessage();
-
-        if(event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) msg.delete().queue();
+        if(textChannel.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) msg.delete().queue();
         EmbedBuilder embedBuilder = new EmbedBuilder();
-        event.getTextChannel().sendMessage(embedBuilder
+        textChannel.sendMessage(embedBuilder
                 .setTitle("AnythingMC Bot Review")
                 .setDescription("Which hosting provider would you like to review?\nYou can find a list [here](https://anythingmc.org). You have one minute to respond")
                 .setFooter("Help keep the bot running by donating! ko-fi.com/justdoom")
                 .build()).queue(message -> Main.getEventWaiter().waitForEvent( // Setup Wait action once message was send
                         MessageReceivedEvent.class,
                         e -> {
-                            if (!e.getChannel().getId().equals(event.getTextChannel().getId())) // Check that channel is the same
+                            if (!e.getChannel().getId().equals(textChannel.getId())) // Check that channel is the same
                                 return false;
 
-                            return e.getAuthor().getIdLong() == event.getAuthor().getIdLong(); // Check for same author
+                            return e.getAuthor().getIdLong() == author.getIdLong(); // Check for same author
                         },
                         e -> {
                             if (!Main.getHosts().contains(e.getMessage().getContentRaw().toLowerCase())) {
@@ -54,7 +56,7 @@ public class ReviewCommand {
                                 /**
                                  * User review
                                  */
-                                if(event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) msg.delete().queue();
+                                if(textChannel.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) msg.delete().queue();
                             } catch (SQLException ex) {
                                 ex.printStackTrace();
                                 message.suppressEmbeds(true).queue();
@@ -68,16 +70,16 @@ public class ReviewCommand {
                                     .build()).queue(message1 -> Main.getEventWaiter().waitForEvent( // Setup Wait action once message was send
                                             MessageReceivedEvent.class,
                                             e1 -> {
-                                                if (!e1.getChannel().getId().equals(event.getTextChannel().getId())) // Check that channel is the same
+                                                if (!e1.getChannel().getId().equals(textChannel.getId())) // Check that channel is the same
                                                     return false;
 
-                                                return e1.getAuthor().getIdLong() == event.getAuthor().getIdLong(); // Check for same author
+                                                return e1.getAuthor().getIdLong() == author.getIdLong(); // Check for same author
                                             },
                                             e1 -> {
                                                 /**
                                                  * Is this correct
                                                  */
-                                                if(event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) msg.delete().queue();
+                                                if(textChannel.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) msg.delete().queue();
                                                 message.editMessage(embedBuilder
                                                         .setTitle("AnythingMC Bot Review")
                                                         .setDescription("Is this correct?\n\"" + e1.getMessage().getContentRaw() + "\"\nYes/Y or No/N")
@@ -85,16 +87,16 @@ public class ReviewCommand {
                                                         .build()).queue(message2 -> Main.getEventWaiter().waitForEvent( // Setup Wait action once message was send
                                                                 MessageReceivedEvent.class,
                                                                 e2 -> {
-                                                                    if (!e.getChannel().getId().equals(event.getTextChannel().getId())) // Check that channel is the same
+                                                                    if (!e.getChannel().getId().equals(textChannel.getId())) // Check that channel is the same
                                                                         return false;
 
-                                                                    return e.getAuthor().getIdLong() == event.getAuthor().getIdLong(); // Check for same author
+                                                                    return e.getAuthor().getIdLong() == author.getIdLong(); // Check for same author
                                                                 },
                                                                 e2 -> {
                                                                     /**
                                                                      * Stars review
                                                                      */
-                                                                    if(event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) msg.delete().queue();
+                                                                    if(textChannel.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) msg.delete().queue();
                                                                     switch (e2.getMessage().getContentRaw().toLowerCase()) {
                                                                         case "yes":
                                                                         case "y":
@@ -105,17 +107,17 @@ public class ReviewCommand {
                                                                                     .build()).queue(message3 -> Main.getEventWaiter().waitForEvent( // Setup Wait action once message was send
                                                                                     MessageReceivedEvent.class,
                                                                                     e3 -> {
-                                                                                        if (!e.getChannel().getId().equals(event.getTextChannel().getId())) // Check that channel is the same
+                                                                                        if (!e.getChannel().getId().equals(textChannel.getId())) // Check that channel is the same
                                                                                             return false;
 
-                                                                                        return e.getAuthor().getIdLong() == event.getAuthor().getIdLong(); // Check for same author
+                                                                                        return e.getAuthor().getIdLong() == author.getIdLong(); // Check for same author
                                                                                     },
                                                                                     e3 -> {
 
                                                                                         /**
                                                                                          * Review submitted
                                                                                          */
-                                                                                        if(event.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) msg.delete().queue();
+                                                                                        if(textChannel.getGuild().getSelfMember().hasPermission(Permission.MESSAGE_MANAGE)) msg.delete().queue();
                                                                                         if (e3.getMessage().getContentRaw().equalsIgnoreCase("1")
                                                                                                 || e3.getMessage().getContentRaw().equalsIgnoreCase("2")
                                                                                                 || e3.getMessage().getContentRaw().equalsIgnoreCase("3")

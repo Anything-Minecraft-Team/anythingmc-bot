@@ -1,18 +1,23 @@
 package org.anythingmc.commands;
 
-import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
+import net.dv8tion.jda.api.entities.Message;
+import net.dv8tion.jda.api.entities.TextChannel;
+import net.dv8tion.jda.api.entities.User;
 import org.anythingmc.Main;
+import org.anythingmc.commands.api.DiscordCommand;
 
 import java.sql.SQLException;
 
-public class ApproveCommand {
+public class ApproveCommand extends DiscordCommand {
 
-    public ApproveCommand(String[] args, MessageReceivedEvent event) {
+    @Override
+    public void onCommand(User author, Message message, TextChannel textChannel, String[] args) {
         try {
             Main.getDatabase().getStmt().executeUpdate("UPDATE reviews SET awaiting_review = 'false' WHERE review_id='" + args[1] + "'");
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
-        event.getMessage().reply("The review " + args[1] + " has been approved.").queue();
+
+        message.reply("The review " + args[1] + " has been approved.").queue();
     }
 }

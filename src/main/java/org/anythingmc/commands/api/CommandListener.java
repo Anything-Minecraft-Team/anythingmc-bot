@@ -1,4 +1,4 @@
-package org.anythingmc.commands;
+package org.anythingmc.commands.api;
 
 import net.dv8tion.jda.api.EmbedBuilder;
 import net.dv8tion.jda.api.entities.Guild;
@@ -6,8 +6,12 @@ import net.dv8tion.jda.api.entities.Message;
 import net.dv8tion.jda.api.events.message.MessageReceivedEvent;
 import net.dv8tion.jda.api.hooks.ListenerAdapter;
 import org.anythingmc.Main;
+import org.anythingmc.commands.*;
 
-public class CommandHandler extends ListenerAdapter {
+import java.util.HashMap;
+import java.util.Map;
+
+public class CommandListener extends ListenerAdapter {
 
     @Override
     public void onMessageReceived(MessageReceivedEvent event) {
@@ -18,6 +22,10 @@ public class CommandHandler extends ListenerAdapter {
 
         String[] args = msg.getContentRaw().substring(Main.getPrefix().length()).split(" ");
         String command = args[0].toLowerCase();
+
+        if(Main.getCommandHandler().getCommands().get(Main.getPrefix() + command) != null)
+            Main.getCommandHandler().getCommands().get(Main.getPrefix() + command).onCommand(
+                    event.getAuthor(), msg, event.getTextChannel(), args);
 
         switch (command) {
             case "stats":
@@ -46,27 +54,13 @@ public class CommandHandler extends ListenerAdapter {
                         .setFooter("Help keep the bot running by donating! ko-fi.com/justdoom")
                         .build()).queue();
                 break;
+            case "discord":
             case "invite":
                 msg.reply(new EmbedBuilder()
                         .setTitle("AnythingMC Bot Invite")
                         .setDescription("Discord invite soon:tm:")
                         .setFooter("Help keep the bot running by donating! ko-fi.com/justdoom")
                         .build()).queue();
-                break;
-            case "review":
-                new ReviewCommand(args, event);
-                break;
-            case "changestatus":
-                new ChangeStatusCommand(args, event);
-                break;
-            case "waitingapproval":
-                new WaitingApprovalCommand(args, event);
-                break;
-            case "approve":
-                new ApproveCommand(args, event);
-                break;
-            case "reviews":
-                new ReviewsCommand(args, event);
                 break;
         }
     }

@@ -8,7 +8,9 @@ import net.dv8tion.jda.api.entities.Activity;
 import net.dv8tion.jda.api.events.GenericEvent;
 import net.dv8tion.jda.api.events.ReadyEvent;
 import net.dv8tion.jda.api.hooks.EventListener;
-import org.anythingmc.commands.CommandHandler;
+import org.anythingmc.commands.*;
+import org.anythingmc.commands.api.CommandHandler;
+import org.anythingmc.commands.api.CommandListener;
 import org.anythingmc.config.Config;
 import org.anythingmc.database.Database;
 
@@ -28,6 +30,7 @@ public class Main implements EventListener {
     private static JDABuilder builder;
     private static EventWaiter waiter;
     private static Database database;
+    private static CommandHandler commandHandler;
 
     private static final String prefix = "!";
 
@@ -39,14 +42,24 @@ public class Main implements EventListener {
         String data = Files.readString(Path.of("config.json"));
         config = gson.fromJson(data, Config.class);
 
+        commandHandler = new CommandHandler();
+
         database = new Database(config.host, config.password, config.user, config.port, config.database);
 
         waiter = new EventWaiter();
 
         builder = JDABuilder.createDefault(config.token)
-                .addEventListeners(new CommandHandler(), waiter);
+                .addEventListeners(new CommandListener(), waiter);
 
         jda = builder.build();
+
+        commandHandler.registerCommand(getPrefix(), "database", new DatabaseCommand());
+        commandHandler.registerCommand(getPrefix(), "reviews", new ReviewsCommand());
+        commandHandler.registerCommand(getPrefix(), "review", new ReviewCommand());
+        commandHandler.registerCommand(getPrefix(), "pendingapproval", new PendingApprovalCommand());
+        commandHandler.registerCommand(getPrefix(), "howoldis", new HowOldIsCommand());
+        commandHandler.registerCommand(getPrefix(), "changestatus", new ChangeStatusCommand());
+        commandHandler.registerCommand(getPrefix(), "approve", new ApproveCommand());
 
         jda.getPresence().setActivity(Activity.playing("anythingmc.org"));
 
@@ -86,6 +99,10 @@ public class Main implements EventListener {
 
     public static Database getDatabase() {
         return database;
+    }
+
+    public static CommandHandler getCommandHandler() {
+        return commandHandler;
     }
 
     public static ArrayList<String> getHosts() {

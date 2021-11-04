@@ -37,7 +37,7 @@ public class Main implements EventListener {
     private static final ArrayList<String> hosts = new ArrayList<>(Arrays.asList("titannodes", "birdflop", "bloom",
             "apexhosting", "mcprohosting", "mchostingpro", "shockbyte", "forestracks", "pebblehost", "dedicatedmc"));
 
-    public static void main(String[] args) throws LoginException, IOException, SQLException {
+    public static void main(String[] args) throws LoginException, IOException {
 
         String data = Files.readString(Path.of("config.json"));
         config = gson.fromJson(data, Config.class);

@@ -10,7 +10,5 @@ public class DatabaseCommand extends DiscordCommand {
     @Override
     public void onCommand(User author, Message message, TextChannel textChannel, String[] args) {
         if(!author.getId().equals("474482013886480385")) return;
-
-        message.reply("It works!").queue();
     }
 }
